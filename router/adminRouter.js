@@ -133,11 +133,7 @@ router.get(adminROUTE.products, async (req, res) => {
     });
 });
 
-//router.post(adminROUTE.products, (req,res)=>{
-//   res.render()
-//})
-
-router.get(adminROUTE.deleteproduct, async (req, res) => {
+router.get(adminROUTE.deleteproduct, verifyTokenAdmin, async (req, res) => {
     await productItem.deleteOne({
         _id: req.params.id
     });
@@ -212,21 +208,21 @@ router.get(adminROUTE.editproduct, async (req, res) => {
 
 router.post(adminROUTE.editproduct, async (req, res) => {
     await productItem.updateOne({
-        _id: req.body._id
-    }, {
-        $set: {
-            title: req.body.title,
-            image: req.body.image,
-            price: req.body.price,
-            description: req.body.description,
-            quantity: req.body.quantity,
-            country: req.body.country
-        }
-    })
-    //, {
-    //     runValidators: true
-    // }, (error) => error ? res.send(error.message) :
-    res.redirect(adminROUTE.products)
+            _id: req.body._id
+        }, {
+            $set: {
+                title: req.body.title,
+                image: req.body.image,
+                price: req.body.price,
+                description: req.body.description,
+                quantity: req.body.quantity,
+                country: req.body.country,
+            }
+        })
+        //, {
+        //     runValidators: true
+        // }, (error) => error ? res.send(error.message) :
+         res.redirect(adminROUTE.products)
 
     //)
 })
