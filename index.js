@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 const express = require("express");
-const config = require("./config/config"); 
+const config = require("./config/config");
 const User = require("./router/customerRouter"); // VAD TÄNKTE VI HÄR?
 const Admin = require("./router/adminRouter"); // VAD TÄNKTE VI HÄR?
 const path = require("path");
-const app = express();
 const cookieparser = require("cookie-parser");
+const app = express();
 
-app.use(cookieparser());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieparser());
 // app.use(User); // VAD TÄNKTE VI HÄR?
 // app.use(Admin); // VAD TÄNKTE VI HÄR?
 // const dbUrl = process.env.MONGO_ATLAS_URL;
