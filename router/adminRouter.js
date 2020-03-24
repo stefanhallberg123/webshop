@@ -114,7 +114,7 @@ router.get(adminROUTE.logout, (req, res) => {
 // });
 
 // admin products
-router.get(adminROUTE.products, verifyTokenAdmin, async (req, res) => {
+router.get(adminROUTE.products, async (req, res) => {
     const currentPage = req.query.page || 1;
     const productPerPage = 4;
     const sortByDate = req.query.sort;
@@ -134,17 +134,17 @@ router.get(adminROUTE.products, verifyTokenAdmin, async (req, res) => {
 });
 
 //router.post(adminROUTE.products, (req,res)=>{
- //   res.render()
+//   res.render()
 //})
 
-router.get(adminROUTE.deleteproduct, verifyTokenAdmin, async (req, res) => {
+router.get(adminROUTE.deleteproduct, async (req, res) => {
     await productItem.deleteOne({
         _id: req.params.id
     });
     res.redirect(adminROUTE.products)
 });
 
-/* router.get(adminROUTE.editproduct, verifyTokenAdmin, async (req, res) => {
+router.get(adminROUTE.editproduct, async (req, res) => {
     const response = await productItem.findById({
         _id: req.params.id
     });
@@ -155,25 +155,25 @@ router.get(adminROUTE.deleteproduct, verifyTokenAdmin, async (req, res) => {
 
 router.post(adminROUTE.editproduct, async (req, res) => {
     await productItem.updateOne({
-            _id: req.body._id
-        }, {
-            $set: {
-                title: req.body.title,
-                price: req.body.price,
-                description: req.body.description,
-                quantity: req.body.quantity,
-            }
-        }, (error) =>
+        _id: req.body._id
+    }, {
+        $set: {
+            title: req.body.title,
+            price: req.body.price,
+            description: req.body.description,
+            quantity: req.body.quantity,
+        }
+    }, (error) =>
         error ? res.send(error.message) : res.redirect(adminROUTE.products)
     );
 
     res.redirect(adminROUTE.products)
 
 });
- */
-// router.post(adminROUTE.products, async (req, res) => {
 
-// });
+router.post(adminROUTE.products, async (req, res) => {
+
+});
 
 
 // admin addproduct
@@ -181,8 +181,8 @@ router.post(adminROUTE.editproduct, async (req, res) => {
 router.get(adminROUTE.addproduct, (req, res) => {
     res.render(adminVIEW.addproduct)
 })
-router.post(adminROUTE.addproduct, verifyTokenAdmin, async (req, res) => {
-    const addProduct = new productItem({
+router.post(adminROUTE.addproduct, async (req, res) => {
+    await new productItem({
         title: req.body.title,
         image: req.body.image,
         price: req.body.price,
@@ -190,20 +190,18 @@ router.post(adminROUTE.addproduct, verifyTokenAdmin, async (req, res) => {
         quantity: req.body.quantity,
         country: req.body.country,
         user: req.body.admin._id // HÄR SAKNAS NÅT :)
-    });
-    
-    await addProduct.save((error, success) => {
+    }).save((error, success) => {
         if (error) return res.send(error.message)
         if (success) {
             console.log(req.body.country)
             res.redirect(adminROUTE.products)
-            
+
         }
     })
-    
+
 });
 // admin editproduct
-router.get(adminROUTE.editproduct, verifyTokenAdmin, async (req, res) => {
+router.get(adminROUTE.editproduct, async (req, res) => {
     const response = await productItem.findById({
         _id: req.params.id
     })
@@ -214,21 +212,21 @@ router.get(adminROUTE.editproduct, verifyTokenAdmin, async (req, res) => {
 
 router.post(adminROUTE.editproduct, async (req, res) => {
     await productItem.updateOne({
-            _id: req.body._id
-        }, {
-            $set: {
-                title: req.body.title,
-                image: req.body.image,
-                price: req.body.price,
-                description: req.body.description,
-                quantity: req.body.quantity,
-                country: req.body.country
-            }
-        })
-        //, {
-        //     runValidators: true
-        // }, (error) => error ? res.send(error.message) :
-         res.redirect(adminROUTE.products)
+        _id: req.body._id
+    }, {
+        $set: {
+            title: req.body.title,
+            image: req.body.image,
+            price: req.body.price,
+            description: req.body.description,
+            quantity: req.body.quantity,
+            country: req.body.country
+        }
+    })
+    //, {
+    //     runValidators: true
+    // }, (error) => error ? res.send(error.message) :
+    res.redirect(adminROUTE.products)
 
     //)
 })

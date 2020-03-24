@@ -164,13 +164,13 @@ router.post(userROUTE.welcome, async (req, res) => {
 });
 
 // customer wishlist \\
-router.get(userROUTE.wishlist, verifyToken, async (req, res) => {
+router.get(userROUTE.wishlist, async (req, res) => {
     const user = await User.findOne({ _id: req.body.user._id }).populate("wishlist.productId")
     //console.log(user)
     res.render(userVIEW.wishlist, { user });
 });
 
-router.get(userROUTE.wishlistid, verifyToken, async (req, res) => {
+router.get(userROUTE.wishlistid, async (req, res) => {
     const product = await productItem.findOne({ _id: req.params.id })
     const user = await User.findOne({ _id: req.body.user._id })
     await user.addToWishlist(product)
