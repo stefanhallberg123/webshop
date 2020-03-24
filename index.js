@@ -7,18 +7,19 @@ const path = require("path");
 const cookieparser = require("cookie-parser");
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
 app.use(cookieparser());
-// app.use(User); // VAD TÄNKTE VI HÄR?
-// app.use(Admin); // VAD TÄNKTE VI HÄR?
-// const dbUrl = process.env.MONGO_ATLAS_URL;
+
+app.use(express.urlencoded({ extended: true }));
+app.use(User); // VAD TÄNKTE VI HÄR?
+app.use(Admin); // VAD TÄNKTE VI HÄR?
+//const dbUrl = process.env.MONGO_ATLAS_URL;
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
 
 const dbOptions = { useUnifiedTopology: true, useNewUrlParser: true };
-const port = process.env.PORT || 8007;
+const port = process.env.PORT || 8002;
 mongoose.connect(config.databaseURL, dbOptions).then(() => {
   app.listen(port, () => console.log(`App listening on port ${port}!`));
 }); 
