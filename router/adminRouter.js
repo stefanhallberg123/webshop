@@ -177,7 +177,7 @@ router.post(adminROUTE.products, async (req, res) => {
 router.get(adminROUTE.addproduct, (req, res) => {
     res.render(adminVIEW.addproduct)
 })
-router.post(adminROUTE.addproduct, async (req, res) => {
+router.post(adminROUTE.addproduct, verifyTokenAdmin, async (req, res) => {
     await new productItem({
         title: req.body.title,
         image: req.body.image,
@@ -185,7 +185,7 @@ router.post(adminROUTE.addproduct, async (req, res) => {
         description: req.body.description,
         quantity: req.body.quantity,
         country: req.body.country,
-        user: req.body.admin._id // HÄR SAKNAS NÅT :)
+        user: req.admin.admin._id // HÄR SAKNAS NÅT :)
     }).save((error, success) => {
         if (error) return res.send(error.message)
         if (success) {
@@ -208,21 +208,21 @@ router.get(adminROUTE.editproduct, async (req, res) => {
 
 router.post(adminROUTE.editproduct, async (req, res) => {
     await productItem.updateOne({
-            _id: req.body._id
-        }, {
-            $set: {
-                title: req.body.title,
-                image: req.body.image,
-                price: req.body.price,
-                description: req.body.description,
-                quantity: req.body.quantity,
-                country: req.body.country,
-            }
-        })
-        //, {
-        //     runValidators: true
-        // }, (error) => error ? res.send(error.message) :
-         res.redirect(adminROUTE.products)
+        _id: req.body._id
+    }, {
+        $set: {
+            title: req.body.title,
+            image: req.body.image,
+            price: req.body.price,
+            description: req.body.description,
+            quantity: req.body.quantity,
+            country: req.body.country,
+        }
+    })
+    //, {
+    //     runValidators: true
+    // }, (error) => error ? res.send(error.message) :
+    res.redirect(adminROUTE.products)
 
     //)
 })
