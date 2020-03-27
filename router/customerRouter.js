@@ -1,14 +1,14 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const bcrypt = require("bcryptjs");
-const User = require("../model/user");
-const productItem = require("../model/product");
-const nodemailer = require("nodemailer");
-const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
-const verifyToken = require("./verifyToken");
-const sendGridTransport = require("nodemailer-sendgrid-transport");
-const config = require("../config/config");
+const express               = require("express");
+const bodyParser            = require("body-parser");
+const bcrypt                = require("bcryptjs");
+const User                  = require("../model/user");
+const productItem           = require("../model/product");
+const nodemailer            = require("nodemailer");
+const jwt                   = require("jsonwebtoken");
+const crypto                = require("crypto");
+const verifyToken           = require("./verifyToken");
+const sendGridTransport     = require("nodemailer-sendgrid-transport");
+const config                = require("../config/config");
 
 // middleware  \\
 const router = express();
@@ -115,12 +115,13 @@ router.post(userROUTE.signup, async (req, res) => {
         email: req.body.email,
         password: hashPassword
     }).save();
-    res.render(userVIEW.welcome, { user })
+    res.render(userVIEW.main, { user })
+    // res.send("Du har blivit uppsignad")
 
     transport.sendMail({
         to: user.email,
-        from: "<noreply>stefan.hallberg@medieinstitutet.se",
-        subject: "Login Suceed",
+        from: "edlund.isabelle@gmail.com",
+        subject: "Login Succeed",
         html: "<h1>  Välkommen </h1>" + user.email
     })
 });
@@ -241,7 +242,7 @@ router.post(userROUTE.reset, async (req, res) => {
 
         await transport.sendMail({
             to: user.email,
-            from: "<noreply>stefan.hallberg@medieinstitutet.se",
+            from: "edlund.isabelle@gmail.com",
             subject: "Reset password",
             html: `<h1> Reset Password Link: http://localhost:8005/reset/${resetToken} </h1>`
         })
