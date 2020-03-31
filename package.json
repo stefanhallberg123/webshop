@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "A webshop build with node, express and ejs",
   "main": "index.js",
-  "engines": {
-    "node": "12.14.1"
-  },
   "directories": {
     "test": "test"
+  },
+  "engines": {
+    "node": "12.14.1"
   },
   "scripts": {
     "test": "mocha",
