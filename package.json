@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "start": "node index.js & node-sass -w sass -o public",
+    "start": "node index.js",
     "scss": "node-sass --watch sass -o public"
   },
   "repository": {

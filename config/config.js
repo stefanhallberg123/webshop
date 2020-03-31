@@ -5,3 +5,4 @@ const config = {
     mail: process.env.MAIL
 }
 
+module.exports = config;
