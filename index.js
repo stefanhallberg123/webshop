@@ -1,11 +1,11 @@
-const mongoose        = require("mongoose");
-const express         = require("express");
-const config          = require("./config/config"); 
-const User            = require("./router/customerRouter"); 
-const Admin           = require("./router/adminRouter"); 
-const path            = require("path");
-const app             = express();
-const cookieparser    = require("cookie-parser");
+const mongoose = require("mongoose");
+const express = require("express");
+const config = require("./config/config");
+const User = require("./router/customerRouter");
+const Admin = require("./router/adminRouter");
+const path = require("path");
+const app = express();
+const cookieparser = require("cookie-parser");
 
 app.use(cookieparser());
 

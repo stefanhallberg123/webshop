@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "mocha",
-    "start": "nodemon index.js & node-sass -w sass -o public",
+    "engine": "10.16.3",
+    "start": "node index.js",
     "scss": "node-sass --watch sass -o public"
   },
   "repository": {
